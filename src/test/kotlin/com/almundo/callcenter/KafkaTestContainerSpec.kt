@@ -48,16 +48,21 @@ class KafkaTestContainerSpec {
     }
   }
 
-
   @Test
-  fun sendingMessage(){
-    buildCallerAsync(producer)
-    consumer.getLatch().await(30, TimeUnit.SECONDS)
+  fun sending10Messages(){
+    buildCallerAsync(producer, limit)
+    consumer.getLatch().await(10, TimeUnit.SECONDS)
     assertThat(consumer.getLatch().count).isEqualTo(0)
   }
 
+  @Test
+  fun sending30Messages(){
+    buildCallerAsync(producer, 300)
+    consumer.getLatch().await(10, TimeUnit.SECONDS)
+    assertThat(consumer.getLatch().count).isEqualTo(0)
+  }
 
-  fun buildCallerAsync(sender: KafkaProducer) = runBlocking {
+  fun buildCallerAsync(sender: KafkaProducer, limit: Int) = runBlocking {
     withContext(Dispatchers.Default) {
       (1..limit).map {
         async(Dispatchers.Default) {
