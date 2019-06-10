@@ -2,3 +2,5 @@
 kafka:
   bootstrap-servers: localhost:9092
   topic: "callcenter.t"
+
+spring.kafka.listener.concurrency: 10
