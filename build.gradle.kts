@@ -30,7 +30,6 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
 	testImplementation("org.testcontainers:junit-jupiter:1.11.3")
 	testImplementation("org.testcontainers:kafka:1.11.3")
 }
