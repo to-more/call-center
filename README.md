@@ -23,6 +23,7 @@ The test task run two test with 10 and 300 messages call
 
 The application emulates concurrency thanks to kafka. 
 When no employee is free to answer a call, the message is retained in the topic waiting for a kafka consumer.
+
 The amount of consumers is manged by 
 ```yaml 
 spring:
