@@ -23,9 +23,7 @@ class KafkaConsumer {
   @KafkaListener(topics = ["\${kafka.topic}"])
   fun receive(payload: String) {
     LOGGER.info("received payload='{}'", payload)
-    callCenter.dispatchAsync().invoke().invokeOnCompletion {
-      LOGGER.info("Completion call of payload='{}'", payload)
-    }
+    callCenter.dispatchAsync().invoke()
     latch.countDown()
   }
 }

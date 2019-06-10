@@ -82,23 +82,22 @@ class CallCenter {
     )
   )
 
-  fun dispatchAsync(): () -> Deferred<Unit> = {
+  fun dispatchAsync(): () -> Unit = {
     when {
       operators.isNotEmpty() -> operators.pop()
         .dispatchAsync {
           dispatchingCall()
-        }
+        }.invokeOnCompletion { LOGGER.info("Completion on Operator") }
 
       supervisors.isNotEmpty() -> supervisors.pop()
         .dispatchAsync {
           dispatchingCall()
-        }
+        }.invokeOnCompletion { LOGGER.info("Completion on Supervisor") }
 
       managers.isNotEmpty() -> managers.pop()
         .dispatchAsync {
           dispatchingCall()
-        }
-      else -> operators.pop().dispatchAsync { dispatchingCall() }
+        }.invokeOnCompletion { LOGGER.info("Completion on Manager") }
     }
   }
 
